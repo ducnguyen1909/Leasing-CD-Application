@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="MuonDia" Class="DBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=DUCNGUYEN\SQLEXPRESS;Initial Catalog=MuonDia;Integrated Security=True" SettingsObjectName="BangDia.Properties.Settings" SettingsPropertyName="MuonDiaConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.BangDia" Member="BangDias">
+    <Type Name="BangDia">
+      <Column Name="MaBang" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TuaDe" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="ChuDe" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="TacGia" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="SoLuong" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DonGia" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Association Name="BangDia_HSMuon_BangDia" Member="HSMuon_BangDias" ThisKey="MaBang" OtherKey="MaBang" Type="HSMuon_BangDia" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DoanhThu" Member="DoanhThus">
+    <Type Name="DoanhThu">
+      <Column Name="MaDT" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NgayTra" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="TongTien" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="MaHSMuon" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="HSMuon_DoanhThu" Member="HSMuon" ThisKey="MaHSMuon" OtherKey="MaHSMuon" Type="HSMuon" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.HSMuon" Member="HSMuons">
+    <Type Name="HSMuon">
+      <Column Name="MaHSMuon" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NgayMuon" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="NgayDuKien" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="MaKH" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DaTra" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="HSMuon_DoanhThu" Member="DoanhThus" ThisKey="MaHSMuon" OtherKey="MaHSMuon" Type="DoanhThu" />
+      <Association Name="HSMuon_HSMuon_BangDia" Member="HSMuon_BangDias" ThisKey="MaHSMuon" OtherKey="MaHSMuon" Type="HSMuon_BangDia" />
+      <Association Name="KhachHang_HSMuon" Member="KhachHang" ThisKey="MaKH" OtherKey="MaKH" Type="KhachHang" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.HSMuon_BangDia" Member="HSMuon_BangDias">
+    <Type Name="HSMuon_BangDia">
+      <Column Name="MaHSMuon" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MaBang" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SoLuongMua" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="BangDia_HSMuon_BangDia" Member="BangDia" ThisKey="MaBang" OtherKey="MaBang" Type="BangDia" IsForeignKey="true" />
+      <Association Name="HSMuon_HSMuon_BangDia" Member="HSMuon" ThisKey="MaHSMuon" OtherKey="MaHSMuon" Type="HSMuon" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.KhachHang" Member="KhachHangs">
+    <Type Name="KhachHang">
+      <Column Name="MaKH" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TenKH" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="CMND" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DiaChi" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="DT" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Association Name="KhachHang_HSMuon" Member="HSMuons" ThisKey="MaKH" OtherKey="MaKH" Type="HSMuon" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TaiKhoan" Member="TaiKhoans">
+    <Type Name="TaiKhoan">
+      <Column Name="MaTK" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TenTK" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="TenDN" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MatKhau" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>
